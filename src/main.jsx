@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import "./index.css";
 
-import ErrorPage from "./layout/share/error-page";
+import ErrorPage from "@/layout/share/error-page";
 
 const router = createBrowserRouter(
   [
