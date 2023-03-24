@@ -2,10 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import AuthButton from "@/AuthButton.jsx";
 
 import "./index.css";
 
 import ErrorPage from "@/layout/share/error-page";
+import LoginPage from "@/layout/login-page.jsx";
+import MainPage from "@/layout/main-page.jsx";
 
 const router = createBrowserRouter(
   [
@@ -15,6 +18,10 @@ const router = createBrowserRouter(
       errorElement: <ErrorPage />,
       // loader: rootLoader,
       // action: rootAction,
+      children: [
+        { path: "login", element: <LoginPage /> },
+        { index: true, element: <MainPage /> },
+      ],
     },
     // {
     //   path: "/tasker",
