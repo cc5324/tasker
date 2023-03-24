@@ -1,16 +1,22 @@
-export default function AuthButton(){
+export default function AuthButton() {
   const requestConfig = {
-    base: 'https://github.com/login/oauth/authorize',
-    client_id: '5aa5158efe2c1966295d',
-    redirect_uri: 'https://cc5324.github.io/tasker/',
-    scope: 'repo'
-  }
+    base: "https://github.com/login/oauth/authorize",
+    client_id: "5aa5158efe2c1966295d",
+    redirect_uri: "https://cc5324.github.io/tasker/",
+    scope: "repo",
+  };
 
-  const endpoint = 'https://github.com/login/oauth/authorize?client_id=5aa5158efe2c1966295d;scope=user;redirect_uri=https://cc5324.github.io/tasker/';
+  const endpoint =
+    "https://github.com/login/oauth/authorize?client_id=5aa5158efe2c1966295d;scope=user;redirect_uri=https://cc5324.github.io/tasker/";
 
   return (
-      <>
-        <a href={endpoint} className="cursor-pointer bg-blue-600 hover:bg-blue-500 shadow-xl px-5 py-2 inline-block text-blue-100 hover:text-white rounded w-fit">Primary</a>
-      </>
-    )
+    <>
+      <a
+        href={endpoint}
+        className="cursor-pointer bg-blue-600 hover:bg-blue-500 shadow-xl px-5 py-2 inline-block text-blue-100 hover:text-white rounded w-fit"
+      >
+        Primary
+      </a>
+    </>
+  );
 }

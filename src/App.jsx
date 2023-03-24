@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import './App.css'
-import AuthButton from './AuthButton'
+import { useState } from "react";
+import "./App.css";
+import AuthButton from "./AuthButton";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -23,7 +23,7 @@ function App() {
         </button>
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
