@@ -6,8 +6,8 @@ export default function AuthButton() {
     scope: "repo",
   };
 
-  const endpoint =
-    "https://github.com/login/oauth/authorize?client_id=5aa5158efe2c1966295d;scope=user;redirect_uri=https://cc5324.github.io/tasker/";
+  const redirect_uri = import.meta.env.VITE_REDIRECT_URL;
+  const endpoint = `https://github.com/login/oauth/authorize?client_id=5aa5158efe2c1966295d;scope=user;redirect_uri=${redirect_uri}`;
 
   return (
     <>
