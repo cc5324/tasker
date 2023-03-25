@@ -8,7 +8,7 @@ import "./index.css";
 
 import ErrorPage from "@/layout/share/error-page";
 import LoginPage from "@/layout/login-page.jsx";
-import MainPage from "@/layout/main-page.jsx";
+import MainPage, { loader as MainLoader } from "@/layout/main-page.jsx";
 
 const router = createBrowserRouter(
   [
@@ -16,11 +16,10 @@ const router = createBrowserRouter(
       path: "/",
       element: <App />,
       errorElement: <ErrorPage />,
-      // loader: rootLoader,
       // action: rootAction,
       children: [
         { path: "login", element: <LoginPage /> },
-        { index: true, element: <MainPage /> },
+        { index: true, element: <MainPage />, loader: MainLoader },
       ],
     },
     // {
