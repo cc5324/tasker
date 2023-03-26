@@ -1,29 +1,39 @@
-import { useState } from 'react'
-import './App.css'
-import AuthButton from './AuthButton'
+import { useState } from "react";
+import {
+  useMatches,
+  useSearchParams,
+  useLocation,
+  Outlet,
+} from "react-router-dom";
+
+import "./App.css";
+
+import AuthButton from "./AuthButton";
 
 function App() {
-  const [count, setCount] = useState(0);
+  //! 測試區 router hooks 區域
+  const url = new URL(window.location);
+  // console.log(`url`, url.searchParams.get("code"));
 
-  // let getTokenResult = await axios({
-  //     method: 'post',
-  //     url: `https://github.com/login/oauth/access_token?client_id=${clientID}&client_secret=${clientSecret}&code=${requestToken}`,
-  //     headers: {
-  //     accept: 'application/json'
-  //   }
-  // });
+  const matches = useMatches();
+  // console.log(`matches`, matches);
+
+  let location = useLocation();
+  // console.log(`location`, location);
+  //! 測試區 ----------------
+
+  let [searchParams, setSearchParams] = useSearchParams();
+  const code = searchParams.get("code");
+  // console.log(`searchParams.code`, code);
+
+  const getTokenUrl = "https//github.com/login/oauth/access_token";
 
   return (
     <div className="App">
-      <h1>Click This</h1>
-      <AuthButton></AuthButton>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
+      <header className="bg-yellow-500">APP HEADER</header>
+      <Outlet></Outlet>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
