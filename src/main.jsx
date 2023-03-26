@@ -1,14 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import AuthButton from "@/AuthButton.jsx";
+
+import App from "./App";
+import ErrorPage from "@/pages/share/error.jsx";
+import LoginPage from "@/pages/login.jsx";
+import MainPage, { loader as MainLoader } from "@/pages/tasks.jsx";
+import Tasks from "@/pages/share/demo.jsx";
 
 import "./index.css";
-
-import ErrorPage from "@/layout/share/error-page";
-import LoginPage from "@/layout/login-page.jsx";
-import MainPage, { loader as MainLoader } from "@/layout/main-page.jsx";
 
 const router = createBrowserRouter(
   [
@@ -20,12 +20,12 @@ const router = createBrowserRouter(
       children: [
         { path: "login", element: <LoginPage /> },
         { index: true, element: <MainPage />, loader: MainLoader },
+        {
+          path: "demo",
+          element: <Tasks></Tasks>,
+        },
       ],
     },
-    // {
-    //   path: "/tasker",
-    //   element: <h1>In takser route.</h1>,
-    // },
   ],
   { basename: "/tasker" }
 );
