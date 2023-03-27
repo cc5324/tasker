@@ -1,20 +1,17 @@
+import { forwardRef } from "react";
+
 import {
   PencilSquareIcon,
   TrashIcon,
   EllipsisVerticalIcon,
 } from "@heroicons/react/24/outline";
 
-export default function Task({
-  state,
-  title,
-  body,
-  avatar,
-  url,
-  created_at,
-  updated_at,
-}) {
+export default forwardRef(function Task(
+  { state, title, body, avatar, url, created_at, updated_at },
+  ref
+) {
   return (
-    <div className="flex rounded-lg h-full bg-white p-8 flex-col">
+    <div ref={ref} className="flex rounded-lg max-h-84 bg-white p-8 flex-col">
       <div className="flex justify-between">
         <div className="bg-gray-300 rounded-md w-fit px-2 py-1 mb-3">
           <span> {state}</span>
@@ -29,13 +26,13 @@ export default function Task({
           <a href={url}>title: {title}</a>
         </h2>
       </div>
-      <div className="flex-grow text-left">
-        <p className="text-xs">Created At: {created_at}</p>
-        <p className="text-xs">Updated At: {updated_at}</p>
-        <p className="leading-relaxed text-base">body: {body}</p>
+      <div className="flex-grow overflow-hidden">
+        <p className="text-right text-xs">Created At: {created_at}</p>
+        <p className="text-right text-xs">Updated At: {updated_at}</p>
+        <p className="text-left text-base line-clamp-3">body: {body}</p>
       </div>
 
-      <div className="w-fit outline outline-gray-200 rounded-md ">
+      {/* <div className="w-fit outline outline-gray-200 rounded-md ">
         <button className="flex w-full px-3 py-2 text-gray-600 hover:bg-slate-100">
           <PencilSquareIcon className="h-5 w-5 " />
           Edit
@@ -44,28 +41,7 @@ export default function Task({
           <TrashIcon className="h-5 w-5" />
           Delete
         </button>
-      </div>
+      </div> */}
     </div>
-
-    // <div className="bg-white rounded-md p-5 ">
-    //   <div className="bg-gray-300 rounded-md w-fit px-2 py-1 mb-2">Open</div>
-    //   <div className="text-left p-1 ">
-    //     <div className="font-bold flex items-center gap-2">
-    //       <div className="rounded-full bg-purple-600 aspect-square w-[30px] flex justify-center items-center">
-    //         <span>A</span>
-    //       </div>
-    //       <div>Title</div>
-    //     </div>
-    //     <p className="p-2">
-    //       Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente
-    //       reiciendis molestias necessitatibus corporis ratione distinctio non
-    //       odit deserunt natus quisquam?
-    //     </p>
-    //   </div>
-    //   <div>
-    //     <button>Edit</button>
-    //     <button>Delete</button>
-    //   </div>
-    // </div>
   );
-}
+});

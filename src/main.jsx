@@ -6,8 +6,9 @@ import App from "./App";
 import ErrorPage from "@/pages/share/error.jsx";
 import LoginPage from "@/pages/login.jsx";
 import Directing, { loader as TokenLoader } from "@/pages/directing.jsx";
-// import Tasks from "@/pages/share/demo.jsx";
-import Tasks, { loader as TasksLoader } from "@/pages/tasks.jsx";
+import Tasks from "@/pages/tasks.jsx";
+
+import DemoPage from "@/pages/share/demo.jsx";
 
 import "./index.css";
 
@@ -21,20 +22,17 @@ const router = createBrowserRouter(
       children: [
         { path: "login", element: <LoginPage /> },
         { path: "directing", element: <Directing />, loader: TokenLoader },
-        { path: "tasks", element: <Tasks />, loader: TasksLoader },
+        { path: "tasks", element: <Tasks /> },
       ],
     },
     {
       path: "demo",
-      element: <Tasks></Tasks>,
+      element: <DemoPage />,
     },
   ],
   { basename: "/tasker" }
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    {/* <App /> */}
-    <RouterProvider router={router} />
-  </React.StrictMode>
+  <RouterProvider router={router} />
 );
