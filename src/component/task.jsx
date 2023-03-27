@@ -4,7 +4,15 @@ import {
   EllipsisVerticalIcon,
 } from "@heroicons/react/24/outline";
 
-export default function Task({ state, title, body, avatar }) {
+export default function Task({
+  state,
+  title,
+  body,
+  avatar,
+  url,
+  created_at,
+  updated_at,
+}) {
   return (
     <div className="flex rounded-lg h-full bg-white p-8 flex-col">
       <div className="flex justify-between">
@@ -18,11 +26,13 @@ export default function Task({ state, title, body, avatar }) {
           <img src={avatar} alt="user avatar" />
         </div>
         <h2 className="text-gray-900 text-lg title-font font-medium">
-          title: {title}
+          <a href={url}>title: {title}</a>
         </h2>
       </div>
-      <div className="flex-grow">
-        <p className="leading-relaxed text-base text-left">body: {body}</p>
+      <div className="flex-grow text-left">
+        <p className="text-xs">Created At: {created_at}</p>
+        <p className="text-xs">Updated At: {updated_at}</p>
+        <p className="leading-relaxed text-base">body: {body}</p>
       </div>
 
       <div className="w-fit outline outline-gray-200 rounded-md ">

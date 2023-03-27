@@ -5,8 +5,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import ErrorPage from "@/pages/share/error.jsx";
 import LoginPage from "@/pages/login.jsx";
-import MainPage, { loader as MainLoader } from "@/pages/tasks.jsx";
-import Tasks from "@/pages/share/demo.jsx";
+import Directing, { loader as TokenLoader } from "@/pages/directing.jsx";
+// import Tasks from "@/pages/share/demo.jsx";
+import Tasks, { loader as TasksLoader } from "@/pages/tasks.jsx";
 
 import "./index.css";
 
@@ -19,12 +20,13 @@ const router = createBrowserRouter(
       // action: rootAction,
       children: [
         { path: "login", element: <LoginPage /> },
-        { index: true, element: <MainPage />, loader: MainLoader },
-        {
-          path: "demo",
-          element: <Tasks></Tasks>,
-        },
+        { path: "directing", element: <Directing />, loader: TokenLoader },
+        { path: "tasks", element: <Tasks />, loader: TasksLoader },
       ],
+    },
+    {
+      path: "demo",
+      element: <Tasks></Tasks>,
     },
   ],
   { basename: "/tasker" }
