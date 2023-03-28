@@ -6,10 +6,8 @@ import {
   EllipsisVerticalIcon,
 } from "@heroicons/react/24/outline";
 
-export default forwardRef(function Task(
-  { state, title, body, avatar, url, created_at, updated_at },
-  ref
-) {
+export default forwardRef(function Task({ task }, ref) {
+  const { state, title, body, user, created_at, updated_at } = task;
   return (
     <div ref={ref} className="flex rounded-lg max-h-84 bg-white p-8 flex-col">
       <div className="flex justify-between">
@@ -20,7 +18,7 @@ export default forwardRef(function Task(
       </div>
       <div className="flex items-center mb-3">
         <div className="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full  text-white flex-shrink-0">
-          <img src={avatar} alt="user avatar" />
+          <img src={user.avatar_url} alt="user avatar" />
         </div>
         <h2 className="text-gray-900 text-lg title-font font-medium">
           <p>title: {title}</p>

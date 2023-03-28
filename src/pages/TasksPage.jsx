@@ -79,69 +79,22 @@ export default function main() {
     fetchData();
   }, [page]);
 
-  // const tasks = useLoaderData();
-  const taskItems = tasks.map(
-    ({ id, state, title, body, user, url, created_at, updated_at }) => (
-      <Task
-        title={title}
-        body={body}
-        avatar={user?.avatar_url}
-        key={id}
-        state={state}
-        url={url}
-        created_at={created_at}
-        updated_at={updated_at}
-      />
-    )
-  );
-  console.log(`tasks`, tasks);
-
   return (
     <>
       <p>Main Page - All Issues</p>
-      {/* <div className="bg-gray-300 p-3 grid gap-3">{taskItems}</div> */}
       <div className="bg-gray-300 p-3 grid gap-3">
-        {tasks.map(
-          (
-            {
-              id,
-              state,
-              title,
-              body,
-              user,
-              url,
-              created_at,
-              updated_at,
-              repository,
-              number,
-            },
-            index
-          ) => {
-            const isObservedLast = tasks.length === index + 1;
-            return (
-              <Link
-                key={id}
-                // to={`/task/${id}`}
-                to={`/task/${id}?owner=${repository.owner.login}&repo=${repository.name}&number=${number}`}
-                // to={`/task/${repository.owner.login}/${repository.name}/${number}?kk=100`}
-                state={{ url }}
-                query={{ number }}
-              >
-                <Task
-                  key={id}
-                  title={title}
-                  body={body}
-                  avatar={user?.avatar_url}
-                  state={state}
-                  url={url}
-                  created_at={created_at}
-                  updated_at={updated_at}
-                  ref={isObservedLast ? lastTaskElement : null}
-                />
-              </Link>
-            );
-          }
-        )}
+        {tasks.map((task, index) => {
+          const isObservedLast = tasks.length === index + 1;
+          const { id, repository, number } = task;
+          return (
+            <Link
+              key={id}
+              to={`/task/${id}?owner=${repository.owner.login}&repo=${repository.name}&number=${number}`}
+            >
+              <Task task={task} ref={isObservedLast ? lastTaskElement : null} />
+            </Link>
+          );
+        })}
       </div>
       {isLoading && <div>Loading ...</div>}
       {!hasMore && <div>No More Tasks!</div>}
