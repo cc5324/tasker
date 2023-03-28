@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { useSearchParams, useLocation, useLoaderData } from "react-router-dom";
-import axios from "axios";
+import { useSearchParams, useLoaderData, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import useTasksSearch from "@/component/useTasksSearch";
 
 import { GithubAPI } from "@/API";
 
-import Task from "@/component/task";
+import Task from "@/component/TaskItem";
 
 export async function loader() {
   // const tasks = await GithubAPI.GET("/issues", {
@@ -28,11 +27,6 @@ export async function loader() {
 }
 
 export default function main() {
-  // let [searchParams, setSearchParams] = useSearchParams();
-  // const params = new Proxy(new URLSearchParams(window.location.search), {
-  //   get: (searchParams, prop) => searchParams.get(prop),
-  // });
-
   const [tasks, setTasks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -67,9 +61,7 @@ export default function main() {
           page: page,
         },
         headers: {
-          // "Content-Type": "application/json",
           Accept: "application/vnd.github+json",
-          // Authorization: `Bearer ${token}`,
         },
       });
 
@@ -111,11 +103,30 @@ export default function main() {
       <div className="bg-gray-300 p-3 grid gap-3">
         {tasks.map(
           (
-            { id, state, title, body, user, url, created_at, updated_at },
+            {
+              id,
+              state,
+              title,
+              body,
+              user,
+              url,
+              created_at,
+              updated_at,
+              repository,
+              number,
+            },
             index
           ) => {
-            if (tasks.length === index + 1) {
-              return (
+            const isObservedLast = tasks.length === index + 1;
+            return (
+              <Link
+                key={id}
+                // to={`/task/${id}`}
+                to={`/task/${id}?owner=${repository.owner.login}&repo=${repository.name}&number=${number}`}
+                // to={`/task/${repository.owner.login}/${repository.name}/${number}?kk=100`}
+                state={{ url }}
+                query={{ number }}
+              >
                 <Task
                   key={id}
                   title={title}
@@ -125,23 +136,10 @@ export default function main() {
                   url={url}
                   created_at={created_at}
                   updated_at={updated_at}
-                  ref={lastTaskElement}
+                  ref={isObservedLast ? lastTaskElement : null}
                 />
-              );
-            } else {
-              return (
-                <Task
-                  key={id}
-                  title={title}
-                  body={body}
-                  avatar={user?.avatar_url}
-                  state={state}
-                  url={url}
-                  created_at={created_at}
-                  updated_at={updated_at}
-                />
-              );
-            }
+              </Link>
+            );
           }
         )}
       </div>

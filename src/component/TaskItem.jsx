@@ -23,7 +23,7 @@ export default forwardRef(function Task(
           <img src={avatar} alt="user avatar" />
         </div>
         <h2 className="text-gray-900 text-lg title-font font-medium">
-          <a href={url}>title: {title}</a>
+          <p>title: {title}</p>
         </h2>
       </div>
       <div className="flex-grow overflow-hidden">
