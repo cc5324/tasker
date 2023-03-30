@@ -1,30 +1,12 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useSearchParams, useLoaderData, Link } from "react-router-dom";
+
 import Cookies from "js-cookie";
 import useTasksSearch from "@/component/useTasksSearch";
 
 import { GithubAPI } from "@/API";
 
 import Task from "@/component/TaskItem";
-
-export async function loader() {
-  // const tasks = await GithubAPI.GET("/issues", {
-  //   params: {
-  //     filter: "assigned",
-  //     state: "open",
-  //     per_page: 10,
-  //     page: 1,
-  //   },
-  //   headers: {
-  //     // "Content-Type": "application/json",
-  //     Accept: "application/vnd.github+json",
-  //     // Authorization: `Bearer ${token}`,
-  //   },
-  // });
-  // console.log(`tasks`, tasks);
-  // return tasks;
-  return null;
-}
 
 export default function main() {
   const [tasks, setTasks] = useState([]);
@@ -40,7 +22,6 @@ export default function main() {
       observe.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
           setPage((prevPage) => prevPage + 1);
-          console.log(`get`);
         }
       });
       if (node) observe.current.observe(node);
@@ -64,12 +45,12 @@ export default function main() {
           Accept: "application/vnd.github+json",
         },
       });
+      console.log(response);
 
       if (response.length === 0) {
         setHasMore(false);
       } else {
         setTasks((prevTasks) => {
-          console.log(`pre`, prevTasks);
           return [...prevTasks, ...response];
         });
       }
@@ -85,13 +66,24 @@ export default function main() {
       <div className="bg-gray-300 p-3 grid gap-3">
         {tasks.map((task, index) => {
           const isObservedLast = tasks.length === index + 1;
-          const { id, repository, number } = task;
+          const {
+            id,
+            repository: {
+              name: repo,
+              owner: { login: owner },
+            },
+            number,
+          } = task;
           return (
             <Link
               key={id}
-              to={`/task/${id}?owner=${repository.owner.login}&repo=${repository.name}&number=${number}`}
+              to={`/task/${id}?owner=${owner}&repo=${repo}&number=${number}`}
             >
-              <Task task={task} ref={isObservedLast ? lastTaskElement : null} />
+              <Task
+                key={id}
+                task={task}
+                ref={isObservedLast ? lastTaskElement : null}
+              />
             </Link>
           );
         })}
