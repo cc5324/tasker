@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useLoaderData, redirect } from "react-router-dom";
+import {
+  useNavigate,
+  useLoaderData,
+  redirect,
+  useSearchParams,
+} from "react-router-dom";
 
 import {
   PencilSquareIcon,
@@ -24,7 +29,6 @@ export async function loader({ request }) {
     console.log(error);
     redirect("/tasks", { replace: true });
   }
-  return null;
 }
 
 export default function taskPage() {
@@ -53,7 +57,27 @@ export default function taskPage() {
   //   fetchTask();
   // }, []);
   // const { state, title, body, user, created_at, updated_at } = taskDetail;
-  const { state, title, body, user, created_at, updated_at } = useLoaderData();
+
+  const { state, title, body, user, created_at, updated_at, url } =
+    useLoaderData();
+
+  const [params, setParams] = useSearchParams();
+  const owner = params.get("owner");
+  const repo = params.get("repo");
+  const issue_number = params.get("number");
+
+  async function deleteTask({ owner, repo, issue_number }) {
+    try {
+      const response = await GithubAPI.PATCH(
+        `/repos/${owner}/${repo}/issues/${issue_number}`,
+        { state: "closed" }
+      );
+    } catch (error) {
+      console.log(error);
+    } finally {
+      navigate("/tasks", { replace: true });
+    }
+  }
 
   return (
     <div className="flex rounded-lg max-h-84 bg-white p-8 flex-col">
@@ -82,7 +106,10 @@ export default function taskPage() {
           <PencilSquareIcon className="h-5 w-5 " />
           Edit
         </button>
-        <button className="flex w-full px-3 py-2 text-red-400 hover:bg-slate-100">
+        <button
+          className="flex w-full px-3 py-2 text-red-400 hover:bg-slate-100"
+          onClick={() => deleteTask({ owner, repo, issue_number })}
+        >
           <TrashIcon className="h-5 w-5" />
           Delete
         </button>

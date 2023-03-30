@@ -6,7 +6,9 @@ const API = axios.create({
   baseURL: "https://api.github.com",
   headers: {
     "Content-Type": "application/json; charset=utf-8",
-    Accept: "application/json",
+    // Accept: "application/json",
+    Accept: "application/vnd.github+json",
+    // "X-GitHub-Api-Version": "2022-11-28",
   },
 });
 
@@ -90,36 +92,35 @@ export default {
       return Promise.reject(res.response.data);
     }
   },
-  async DELETE(url, params) {
+  async DELETE(url, data) {
     try {
-      const res = await API.delete(url, {
-        params,
-      });
+      const res = await API.delete(url, data);
+      return res;
+    } catch (res) {
+      return Promise.reject(res.response.data);
+    }
+  },
+  async POST(url, data, config) {
+    try {
+      const res = await API.post(url, data, config);
       return res.data;
     } catch (res) {
       return Promise.reject(res.response.data);
     }
   },
-  async POST(...arge) {
+  async PUT(url, data, config) {
     try {
-      const res = await API.post(...arge);
+      const res = await API.put(url, data, config);
+      console.log(`res`, res);
       return res.data;
     } catch (res) {
       return Promise.reject(res.response.data);
     }
   },
-  async PUT(...arge) {
+  async PATCH(url, data, config) {
     try {
-      const res = await API.put(...arge);
-      return res.data;
-    } catch (res) {
-      return Promise.reject(res.response.data);
-    }
-  },
-  async PATCH(...arge) {
-    try {
-      const res = await API.patch(...arge);
-      return res.data;
+      const res = await API.patch(url, data, config);
+      return res;
     } catch (res) {
       return Promise.reject(res.response.data);
     }
