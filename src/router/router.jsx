@@ -6,6 +6,7 @@ import LoginPage from "@/pages/login.jsx";
 import Directing, { loader as TokenLoader } from "@/pages/directing.jsx";
 import Tasks from "@/pages/TasksPage.jsx";
 import TaskPage, { loader as TaskLoader } from "@/pages/TaskPage.jsx";
+import TaskEditPage from "@/pages/TaskEditPage";
 
 import DemoPage from "@/pages/share/demo.jsx";
 
@@ -23,6 +24,12 @@ const router = createBrowserRouter(
         {
           path: "task/:taskId",
           element: <TaskPage />,
+          loader: TaskLoader,
+        },
+        {
+          name: "EditTask",
+          path: "task/:taskId/edit",
+          element: <TaskEditPage />,
           loader: TaskLoader,
         },
       ],

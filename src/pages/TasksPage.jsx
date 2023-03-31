@@ -1,9 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useSearchParams, useLoaderData, Link } from "react-router-dom";
 
-import Cookies from "js-cookie";
-import useTasksSearch from "@/component/useTasksSearch";
-
 import { GithubAPI } from "@/API";
 
 import Task from "@/component/TaskItem";
@@ -40,6 +37,8 @@ export default function main() {
           state: "open",
           per_page: 10,
           page: page,
+          sort: "created",
+          direction: "asc",
         },
         headers: {
           Accept: "application/vnd.github+json",
