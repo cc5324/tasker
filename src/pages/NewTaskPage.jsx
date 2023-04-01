@@ -1,14 +1,27 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLoaderData } from "react-router-dom";
 import { Formik, Form } from "formik";
 import { object, string } from "yup";
 
 import { GithubAPI } from "@/API";
 import { useTaskStore } from "@/stores/taskStore";
-import { TextField, DropdownField } from "@/component/base";
+import { TextField, DropdownField, SelectField } from "@/component/base";
+
+export async function repoLoader() {
+  try {
+    const response = await GithubAPI.GET("/user/repos");
+    return response;
+  } catch (error) {
+    return redirect("/tasks");
+  }
+}
 
 const CreateForm = () => {
-  const stateOptions = useTaskStore((state) => state.stateOptions);
   const navigate = useNavigate();
+  const stateOptions = useTaskStore((state) => state.stateOptions);
+  const repos = useLoaderData();
+  const repoOptions = repos.map(({ id, name, owner }) => {
+    return { id, name, owner: owner.login };
+  });
 
   return (
     <>
@@ -17,6 +30,7 @@ const CreateForm = () => {
           title: "",
           body: "",
           state: "Open",
+          repoID: repoOptions[0].id,
         }}
         validationSchema={object({
           title: string().max(30, "不得多於 30 個字").required("必填"),
@@ -24,11 +38,15 @@ const CreateForm = () => {
           state: string()
             .oneOf(["Open", "In Progress", "Done"])
             .required("Required"),
+          repoID: string().required(),
         })}
-        onSubmit={async ({ title, body, state }) => {
+        onSubmit={async ({ title, body, state, repoID }) => {
+          const { name, owner } = repoOptions.find(
+            (repo) => repo.id === repoID
+          );
           try {
             const response = await GithubAPI.POST(
-              `/repos/cc5324/cotea/issues`,
+              `/repos/${owner}/${name}/issues`,
               {
                 title,
                 body,
@@ -45,11 +63,16 @@ const CreateForm = () => {
       >
         {({ isSubmitting }) => (
           <Form className="p-8">
-            <DropdownField
-              name="state"
-              options={stateOptions}
-              // options={["Open", "In Progress", "Done"]}
-            />
+            <div className="text-left">
+              <DropdownField name="state" options={stateOptions} />
+            </div>
+            <SelectField label="Repo" name="repoID">
+              {repoOptions.map(({ id, name }) => (
+                <option key={id} value={id}>
+                  {name}
+                </option>
+              ))}
+            </SelectField>
             <TextField
               label="Title"
               name="title"
