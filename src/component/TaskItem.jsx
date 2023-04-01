@@ -7,7 +7,8 @@ import {
 } from "@heroicons/react/24/outline";
 
 export default forwardRef(function Task({ task }, ref) {
-  const { state, title, body, user, created_at, updated_at } = task;
+  const { labels, title, body, user, created_at, updated_at } = task;
+  const state = labels[0].name;
   return (
     <div ref={ref} className="flex rounded-lg max-h-84 bg-white p-8 flex-col">
       <div className="flex justify-between">
@@ -25,8 +26,12 @@ export default forwardRef(function Task({ task }, ref) {
         </h2>
       </div>
       <div className="flex-grow overflow-hidden">
-        <p className="text-right text-xs">Created At: {created_at}</p>
-        <p className="text-right text-xs">Updated At: {updated_at}</p>
+        <p className="text-right text-xs">
+          Created At: {created_at.split("T")[0]}
+        </p>
+        <p className="text-right text-xs">
+          Updated At: {updated_at.split("T")[0]}
+        </p>
         <p className="text-left text-base line-clamp-3">body: {body}</p>
       </div>
 
