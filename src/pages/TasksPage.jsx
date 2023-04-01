@@ -3,6 +3,7 @@ import { useSearchParams, useLoaderData, Link } from "react-router-dom";
 
 import { GithubAPI } from "@/API";
 
+import { PlusIcon } from "@heroicons/react/24/outline";
 import Task from "@/component/TaskItem";
 
 export default function main() {
@@ -60,12 +61,12 @@ export default function main() {
   }, [page]);
 
   return (
-    <>
-      <p>Main Page - All Issues</p>
-      <Link to={"/new-task"} className="btn btn-primary">
-        新增任務
+    <div className="p-4 bg-base-200">
+      <Link to={"/new-task"} className="btn btn-info mb-3">
+        <PlusIcon className="h-5 w-5" />
+        任務
       </Link>
-      <div className="bg-gray-300 p-3 grid gap-3">
+      <div className="grid gap-3">
         {tasks.map((task, index) => {
           const isObservedLast = tasks.length === index + 1;
           const {
@@ -92,6 +93,6 @@ export default function main() {
       </div>
       {isLoading && <div>Loading ...</div>}
       {!hasMore && <div>No More Tasks!</div>}
-    </>
+    </div>
   );
 }

@@ -83,7 +83,7 @@ export default function taskPage() {
   }
 
   return (
-    <div>
+    <div className="p-8">
       <button className="btn btn-info" onClick={() => navigate("/tasks")}>
         回列表
       </button>

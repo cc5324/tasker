@@ -29,9 +29,11 @@ function App() {
   const getTokenUrl = "https//github.com/login/oauth/access_token";
 
   return (
-    <div className="App">
-      <header className="bg-yellow-500">APP HEADER</header>
-      <Outlet></Outlet>
+    <div className="App flex flex-col">
+      <header className="grow-0 p-5 bg-yellow-500 text-2xl font-serif">
+        <h1>Tasker</h1>
+      </header>
+      <Outlet className="grow"></Outlet>
     </div>
   );
 }
