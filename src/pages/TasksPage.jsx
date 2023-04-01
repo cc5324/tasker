@@ -1,13 +1,15 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { useSearchParams, useLoaderData, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { GithubAPI } from "@/API";
 import { useTaskStore } from "@/stores/taskStore";
+import { getInfoByIssueURL } from "@/share/utils/url-parser.js";
 
 import {
   PlusIcon,
   ArrowDownIcon,
   ArrowUpIcon,
+  MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import Task from "@/component/TaskItem";
 import Spinner from "@/component/SpinnerItem.jsx";
@@ -18,13 +20,25 @@ export default function main() {
   // const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
+  // const [queryParams, setQueryParams] = useState({
+  //   filter: "assigned",
+  //   state: "open",
+  //   per_page: 10,
+  //   page: 1,
+  //   sort: "created",
+  //   direction: "desc",
+  //   labels: "open",
+  // });
+
+  const username = "cc5324";
+  const [queryString, setQueryString] = useState("");
   const [queryParams, setQueryParams] = useState({
-    filter: "assigned",
-    state: "open",
+    sort: "created",
+    order: "desc",
     per_page: 10,
     page: 1,
-    sort: "created",
-    direction: "desc",
+    assignee: username,
+    state: "open",
     labels: "open",
   });
 
@@ -53,19 +67,31 @@ export default function main() {
     console.log(`call effect`);
     const fetchData = async () => {
       if (!hasMore) return;
-      const response = await GithubAPI.GET("/issues", {
-        params: queryParams,
+      // const response = await GithubAPI.GET("/issues", {
+      //   params: queryParams,
+      //   headers: {
+      //     Accept: "application/vnd.github+json",
+      //   },
+      // });
+
+      const { assignee, state, labels, ...params } = queryParams;
+      const response = await GithubAPI.GET("/search/issues", {
+        params: {
+          q: `${queryString} state:${state} assignee:${username} label:${labels}`,
+          ...params,
+        },
         headers: {
           Accept: "application/vnd.github+json",
         },
       });
       console.log(response);
 
-      if (response.length === 0) {
+      const newTasks = response.items;
+      if (newTasks.length === 0) {
         setHasMore(false);
       } else {
         setTasks((prevTasks) => {
-          return [...prevTasks, ...response];
+          return [...prevTasks, ...newTasks];
         });
       }
       setIsLoading(false);
@@ -84,25 +110,6 @@ export default function main() {
           Task
         </Link>
         <div className="flex justify-end">
-          <select
-            className="select select-bordered w-full max-w-xs"
-            value={queryParams.labels}
-            onChange={(e) => {
-              setTasks([]);
-              setHasMore(true);
-              setQueryParams({
-                ...queryParams,
-                page: 1,
-                labels: e.target.value,
-              });
-            }}
-          >
-            {stateOptions.map((option) => (
-              <option key={option.id} value={option.value}>
-                {option.value}
-              </option>
-            ))}
-          </select>
           <label className="swap swap-rotate p-2">
             <input
               type="checkbox"
@@ -126,23 +133,57 @@ export default function main() {
               data-direction="asc"
             />
           </label>
+          <select
+            className="select select-bordered max-w-xs"
+            value={queryParams.labels}
+            onChange={(e) => {
+              setTasks([]);
+              setHasMore(true);
+              setQueryParams({
+                ...queryParams,
+                page: 1,
+                labels: e.target.value,
+              });
+            }}
+          >
+            {stateOptions.map((option) => (
+              <option key={option.id} value={option.value}>
+                {option.value}
+              </option>
+            ))}
+          </select>
+          <div className="form-control">
+            <div className="input-group">
+              <input
+                type="text"
+                placeholder="Search…"
+                className="input input-bordered"
+                value={queryString}
+                onChange={(e) => setQueryString(e.target.value)}
+              />
+              <button
+                className="btn btn-square"
+                onClick={() => {
+                  setTasks([]);
+                  setHasMore(true);
+                  setQueryParams({ ...queryParams, page: 1 });
+                }}
+              >
+                <MagnifyingGlassIcon className="w-8 h-8" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <div className="grid gap-3">
         {tasks.map((task, index) => {
           const isObservedLast = tasks.length === index + 1;
-          const {
-            id,
-            repository: {
-              name: repo,
-              owner: { login: owner },
-            },
-            number,
-          } = task;
+          const { id, url } = task;
+          const { owner, repo, issue_number } = getInfoByIssueURL(url);
           return (
             <Link
               key={id}
-              to={`/task/${id}?owner=${owner}&repo=${repo}&number=${number}`}
+              to={`/task/${id}?owner=${owner}&repo=${repo}&number=${issue_number}`}
             >
               <Task
                 key={id}
