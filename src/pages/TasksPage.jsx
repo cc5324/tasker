@@ -5,6 +5,7 @@ import { GithubAPI } from "@/API";
 
 import { PlusIcon } from "@heroicons/react/24/outline";
 import Task from "@/component/TaskItem";
+import Spinner from "@/component/SpinnerItem.jsx";
 
 export default function main() {
   const [tasks, setTasks] = useState([]);
@@ -91,7 +92,7 @@ export default function main() {
           );
         })}
       </div>
-      {isLoading && <div>Loading ...</div>}
+      {isLoading && <Spinner />}
       {!hasMore && <div>No More Tasks!</div>}
     </div>
   );
