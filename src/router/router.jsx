@@ -7,6 +7,7 @@ import Directing, { loader as TokenLoader } from "@/pages/directing.jsx";
 import Tasks from "@/pages/TasksPage.jsx";
 import TaskPage, { loader as TaskLoader } from "@/pages/TaskPage.jsx";
 import TaskEditPage from "@/pages/TaskEditPage";
+import NewTaskPage from "@/pages/NewTaskPage ";
 
 import DemoPage from "@/pages/share/demo.jsx";
 
@@ -32,11 +33,15 @@ const router = createBrowserRouter(
           element: <TaskEditPage />,
           loader: TaskLoader,
         },
+        {
+          path: "/new-task",
+          element: <NewTaskPage />,
+        },
+        {
+          path: "demo",
+          element: <DemoPage />,
+        },
       ],
-    },
-    {
-      path: "demo",
-      element: <DemoPage />,
     },
   ],
   { basename: "/tasker" }

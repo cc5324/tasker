@@ -62,6 +62,9 @@ export default function main() {
   return (
     <>
       <p>Main Page - All Issues</p>
+      <Link to={"/new-task"} className="btn btn-primary">
+        新增任務
+      </Link>
       <div className="bg-gray-300 p-3 grid gap-3">
         {tasks.map((task, index) => {
           const isObservedLast = tasks.length === index + 1;
