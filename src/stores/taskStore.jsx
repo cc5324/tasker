@@ -8,14 +8,15 @@ const useTaskStore = create((set) => ({
       label: "open",
       value: "open",
       id: "5334016317",
-      color: "base-content",
     },
     {
       name: "in_progress",
       label: "in progress",
       value: "in progress",
       id: "5334017295",
-      color: "primary",
+      color: "green",
+      // color: "primary",
+      // color: "emerald-400",
     },
     {
       name: "done",
@@ -23,6 +24,7 @@ const useTaskStore = create((set) => ({
       value: "done",
       id: "5334018549",
       color: "error",
+      // color: "red",
     },
   ],
 }));
