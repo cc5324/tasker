@@ -16,7 +16,7 @@ import {
 import { GithubAPI } from "@/API";
 
 import { getSearchParams } from "@/share/utils/getSearchParams";
-import { useNavigateSearch } from "@/share/hooks/useNavigateSearch";
+// import { useNavigateSearch } from "@/share/hooks/useNavigateSearch";
 
 export async function loader({ request }) {
   const { params } = getSearchParams(request.url);
