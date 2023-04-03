@@ -17,7 +17,11 @@ const DropdownSelect = ({ label, name, className, options = [], ...props }) => {
 
   return (
     <div className="dropdown dropdown-right">
-      <button tabIndex={0} type="button" className={`btn m-1 rounded-lg`}>
+      <button
+        tabIndex={0}
+        type="button"
+        className=" bg-base-300 rounded-md w-fit px-2 py-1 mb-3"
+      >
         {field.value}
       </button>
       <ul
@@ -28,12 +32,9 @@ const DropdownSelect = ({ label, name, className, options = [], ...props }) => {
           <li
             key={index}
             onClick={(event) => handleClick(event, option.value)}
-            className={`text-${option.color}`}
+            className={`text-${option.color ?? "neutral"}`}
           >
-            <a>
-              <span>■</span>
-              {option.label}
-            </a>
+            <span>■&ensp;{option.label}</span>
           </li>
         ))}
       </ul>

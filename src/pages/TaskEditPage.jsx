@@ -48,7 +48,9 @@ const EditForm = () => {
       >
         {({ isSubmitting }) => (
           <Form className="p-8">
-            <DropdownField name="state" options={stateOptions} />
+            <div className="text-left">
+              <DropdownField name="state" options={stateOptions} />
+            </div>
             <TextField
               label="Title"
               name="title"
@@ -56,9 +58,19 @@ const EditForm = () => {
               placeholder="Title"
             />
             <TextField label="body" name="body" type="textarea" rows={7} />
-            <button type="submit" className="btn" disabled={isSubmitting}>
-              Submit
-            </button>
+            <div className="flex gap-3 justify-center mt-4">
+              <button type="submit" className="btn" disabled={isSubmitting}>
+                Submit
+              </button>
+              <button
+                type="button"
+                className="btn"
+                disabled={isSubmitting}
+                onClick={() => navigate(-1)}
+              >
+                Cancel
+              </button>
+            </div>
           </Form>
         )}
       </Formik>

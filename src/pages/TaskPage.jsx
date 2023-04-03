@@ -78,7 +78,7 @@ export default function taskPage() {
     } catch (error) {
       console.log(error);
     } finally {
-      navigate("/tasks", { replace: true });
+      navigate("/tasks");
     }
   }
 
@@ -87,80 +87,113 @@ export default function taskPage() {
       <button className="btn btn-info" onClick={() => navigate("/tasks")}>
         回列表
       </button>
-      <div className="flex rounded-lg max-h-84 bg-white p-8 flex-col">
-        <div className="flex justify-between">
+      <div className="flex rounded-lg max-h-84 bg-white p-8 flex-col mt-4">
+        <div className="flex justify-between items-center">
           <div className="bg-gray-300 rounded-md w-fit px-2 py-1 mb-3">
             <span> {state}</span>
           </div>
-          <EllipsisVerticalIcon className="h-5 w-5 text-gray-400"></EllipsisVerticalIcon>
+          <div className="dropdown dropdown-end">
+            <label
+              tabIndex={0}
+              className="btn bg-transparent hover:bg-base-200 border-none m-1"
+            >
+              <EllipsisVerticalIcon className="h-5 w-5 text-gray-400"></EllipsisVerticalIcon>
+            </label>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu w-52 p-2 shadow bg-base-100 outline outline-base-200 outline-1 rounded-box text-left"
+            >
+              <button
+                className="flex w-full px-4 py-3 text-gray-600 hover:bg-base-200 rounded-lg"
+                onClick={() =>
+                  navigate({
+                    pathname: `/task/${id}/edit`,
+                    search: location.search,
+                    // search: `?owner=${owner}&repo=${repo}&number=${issue_number}`,
+                  })
+                }
+              >
+                <PencilSquareIcon className="h-5 w-5 " />
+                Edit
+              </button>
+              <button
+                className="flex w-full px-4 py-3 text-red-400 hover:bg-base-200 rounded-lg"
+                onClick={() => {
+                  const yes = confirm("是否確定刪除？");
+                  if (yes) deleteTask({ owner, repo, issue_number });
+                }}
+              >
+                <TrashIcon className="h-5 w-5" />
+                Delete
+              </button>
+            </ul>
+          </div>
         </div>
         <div className="flex items-center mb-3">
           <div className="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full  text-white flex-shrink-0">
             <img src={user?.avatar_url} alt="user avatar" />
           </div>
           <h2 className="text-gray-900 text-lg title-font font-medium">
-            <p>title: {title}</p>
+            <span>Title: {title}</span>
           </h2>
+          {/* <label htmlFor="title" className="label">
+            <span className="text-gray-900 text-lg title-font font-medium">
+              Title
+            </span>
+          </label>
+          <div className="form-control w-full">
+            <input
+              name="title"
+              className="input focus:outline-none"
+              defaultValue={title}
+              readOnly
+            />
+          </div> */}
         </div>
-        <div className="flex-grow overflow-hidden">
-          <p className="text-right text-xs">Created At: {created_at}</p>
-          <p className="text-right text-xs">Updated At: {updated_at}</p>
-          <p className="text-left text-base line-clamp-3">body: {body}</p>
+        <div className="flex-grow overflow-hidden p-1">
+          <p className="text-right text-xs">
+            Created At: {created_at.split("T")[0]}
+          </p>
+          <p className="text-right text-xs">
+            Updated At: {updated_at.split("T")[0]}
+          </p>
+          <p className="text-left text-base line-clamp-3">Body: {body}</p>
+          {/* <div className="form-control w-full">
+            <label htmlFor="body" className="label">
+              <span className="label-text">Body</span>
+            </label>
+            <textarea
+              className="textarea textarea-bordered"
+              defaultValue={body}
+              readOnly
+            />
+          </div> */}
         </div>
-        <div className="w-fit outline outline-gray-200 rounded-md ">
-          <button
-            className="flex w-full px-3 py-2 text-gray-600 hover:bg-slate-100"
-            onClick={() =>
-              navigate({
-                pathname: `/task/${id}/edit`,
-                search: location.search,
-                // search: `?owner=${owner}&repo=${repo}&number=${issue_number}`,
-              })
-            }
-          >
-            <PencilSquareIcon className="h-5 w-5 " />
-            Edit
-          </button>
-          <button
-            className="flex w-full px-3 py-2 text-red-400 hover:bg-slate-100"
-            onClick={() => {
-              const yes = confirm("是否確定刪除？");
-              if (yes) deleteTask({ owner, repo, issue_number });
-            }}
-          >
-            <TrashIcon className="h-5 w-5" />
-            Delete
-          </button>
-          {/*
-          <Form action="edit">
-            <button
-              className="flex w-full px-3 py-2 text-gray-600 hover:bg-slate-100"
-              type="submit"
-            >
-              <PencilSquareIcon className="h-5 w-5 " />
-              Edit
-            </button>
-          </Form>
-          <Form
-            method="patch"
-            action="delete"
-            onSubmit={(event) => {
-              if (!confirm("Please confirm you want to delete this record.")) {
-                event.preventDefault();
-                deleteTask({ owner, repo, issue_number });
-              }
-            }}
-          >
-            <button
-              type="submit"
-              className="flex w-full px-3 py-2 text-red-400 hover:bg-slate-100"
-              // onClick={() => deleteTask({ owner, repo, issue_number })}
-            >
-              <TrashIcon className="h-5 w-5" />
-              Delete
-            </button>
-          </Form> */}
-        </div>
+      </div>
+      <div className="flex gap-3 justify-center mt-4">
+        <button
+          className="btn btn-primary flex"
+          onClick={() =>
+            navigate({
+              pathname: `/task/${id}/edit`,
+              search: location.search,
+              // search: `?owner=${owner}&repo=${repo}&number=${issue_number}`,
+            })
+          }
+        >
+          <PencilSquareIcon className="h-5 w-5 " />
+          Edit
+        </button>
+        <button
+          className="btn btn-secondary flex"
+          onClick={() => {
+            const yes = confirm("是否確定刪除？");
+            if (yes) deleteTask({ owner, repo, issue_number });
+          }}
+        >
+          <TrashIcon className="h-5 w-5" />
+          Delete
+        </button>
       </div>
     </div>
   );
