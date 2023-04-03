@@ -103,8 +103,8 @@ export default function main() {
   const stateOptions = useTaskStore((state) => state.stateOptions);
 
   return (
-    <div className="p-4 bg-base-200">
-      <div className="flex items-center justify-between mb-4">
+    <div className="p-4 md:p-8 lg:p-12 bg-base-200">
+      <div className="flex items-center flex-wrap sm:flex-nowrap justify-center sm:justify-between gap-3 sm:gap-0 mb-4">
         <Link to={"/new-task"} className="btn btn-info">
           <PlusIcon className="h-5 w-5" />
           Task
@@ -134,7 +134,7 @@ export default function main() {
             />
           </label>
           <select
-            className="select select-bordered max-w-xs"
+            className="select select-bordered max-w-[100px] sm:max-w-xs"
             value={queryParams.labels}
             onChange={(e) => {
               setTasks([]);
@@ -157,7 +157,7 @@ export default function main() {
               <input
                 type="text"
                 placeholder="Search…"
-                className="input input-bordered"
+                className="input input-bordered max-w-[160px] sm:max-w-xs"
                 value={queryString}
                 onChange={(e) => setQueryString(e.target.value)}
               />

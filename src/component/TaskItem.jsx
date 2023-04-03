@@ -15,7 +15,7 @@ export default forwardRef(function Task({ task }, ref) {
         <div className="bg-gray-300 rounded-md w-fit px-2 py-1 mb-3">
           <span>{state}</span>
         </div>
-        <EllipsisVerticalIcon className="h-7 w-7 text-gray-400"></EllipsisVerticalIcon>
+        {/* <EllipsisVerticalIcon className="h-7 w-7 text-gray-400"></EllipsisVerticalIcon> */}
       </div>
       <div className="flex items-center mb-3">
         <div className="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full  text-white flex-shrink-0">
