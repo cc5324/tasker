@@ -174,6 +174,16 @@ export default function taskPage() {
       </div>
       <div className="flex gap-3 justify-center mt-4">
         <button
+          className="btn btn-secondary flex"
+          onClick={() => {
+            const yes = confirm("是否確定刪除？");
+            if (yes) deleteTask({ owner, repo, issue_number });
+          }}
+        >
+          <TrashIcon className="h-5 w-5" />
+          Delete
+        </button>
+        <button
           className="btn btn-primary flex"
           onClick={() =>
             navigate({
@@ -185,16 +195,6 @@ export default function taskPage() {
         >
           <PencilSquareIcon className="h-5 w-5 " />
           Edit
-        </button>
-        <button
-          className="btn btn-secondary flex"
-          onClick={() => {
-            const yes = confirm("是否確定刪除？");
-            if (yes) deleteTask({ owner, repo, issue_number });
-          }}
-        >
-          <TrashIcon className="h-5 w-5" />
-          Delete
         </button>
       </div>
     </div>

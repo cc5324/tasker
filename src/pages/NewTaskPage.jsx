@@ -83,19 +83,19 @@ const CreateForm = () => {
             />
             <TextField label="body" name="body" type="textarea" rows={7} />
             <button
-              type="submit"
-              className="btn btn-primary"
-              disabled={isSubmitting}
-            >
-              Submit
-            </button>
-            <button
               type="button"
-              className="btn btn-secondary ml-3"
+              className="btn btn-secondary"
               disabled={isSubmitting}
               onClick={() => navigate("/")}
             >
               Cancel
+            </button>
+            <button
+              type="submit"
+              className="btn btn-primary ml-3"
+              disabled={isSubmitting}
+            >
+              Submit
             </button>
           </Form>
         )}

@@ -23,13 +23,15 @@ export default function ErrorPage() {
   return (
     <div id="error-page">
       <Header />
-      <div className="p-8">
+      <div className="p-8 text-center">
         <h2 className="text-2xl font-extrabold text-error">Oops!</h2>
         <p className="text-xl">Sorry, an unexpected error has occurred.</p>
         <p className="text-xl">
           <i>{error.statusText || error.message}</i>
         </p>
-        <Link className="btn btn-primary mt-5">回到首頁</Link>
+        <Link to={"/"} className="btn btn-primary mt-5">
+          回到首頁
+        </Link>
         {/* <p>{countdown} 秒後將重新導向</p> */}
       </div>
     </div>
