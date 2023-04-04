@@ -42,7 +42,7 @@ const EditForm = () => {
             );
           } catch (error) {
             console.log(error);
-            navigate("/tasks", { replace: true });
+            navigate("/");
           }
         }}
       >

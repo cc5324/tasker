@@ -11,7 +11,7 @@ export async function repoLoader() {
     const response = await GithubAPI.GET("/user/repos");
     return response;
   } catch (error) {
-    return redirect("/tasks");
+    return redirect("/");
   }
 }
 
@@ -55,7 +55,7 @@ const CreateForm = () => {
               }
             );
             alert(JSON.stringify(response, null, 2));
-            navigate("/tasks");
+            navigate("/");
           } catch (error) {
             console.log(error);
           }

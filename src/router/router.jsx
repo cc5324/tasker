@@ -25,15 +25,25 @@ const router = createBrowserRouter(
       errorElement: <ErrorPage />,
       children: [
         {
-          index: true,
+          // index: true,
+          path: "login",
           element: <LoginPage />,
           loader: () => {
             const token = Cookies.get("token");
-            return token ? redirect("/tasks") : null;
+            return token ? redirect("/") : null;
           },
         },
         { path: "directing", element: <Directing />, loader: TokenLoader },
-        { path: "tasks", element: <Tasks /> },
+        {
+          index: true,
+          element: <Tasks />,
+          loader: TokenLoader,
+          // loader: () => {
+          //   const token = Cookies.get("token");
+          //   return token ? null : redirect("/login");
+          // },
+        },
+        { path: "tasks", element: <p>text</p> },
         {
           path: "task/:taskId",
           element: <TaskPage />,

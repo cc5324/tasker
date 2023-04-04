@@ -4,9 +4,13 @@ import Cookies from "js-cookie";
 
 export async function loader({ request }) {
   console.log(`loader`);
+  let token = Cookies.get("token");
+  if (token) return null;
+  console.log(token);
+
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
-
+  console.log(`code`, code);
   const response = await axios({
     method: "post",
     url: "https://script.google.com/macros/s/AKfycbxwOLQ23GYg_QVAblvvQxf-qJIHaloOudc_hC_62m2d4mfGb-TLUCmB_bj9itI5Naz2_w/exec",
@@ -17,14 +21,14 @@ export async function loader({ request }) {
   });
 
   const data = JSON.parse(response.data);
-  const token = data.access_token;
+  token = data.access_token;
 
   if (token) {
     Cookies.set("token", token);
     console.log(`get token`, token);
-    return redirect("/tasks");
+    return redirect("/");
   }
-
+  // return null;
   return redirect("/login");
 }
 

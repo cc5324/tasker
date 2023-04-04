@@ -29,7 +29,7 @@ export async function loader({ request }) {
     return response;
   } catch (error) {
     console.log(error);
-    return redirect("/tasks", { replace: true });
+    return redirect("/");
   }
 }
 
@@ -54,7 +54,7 @@ export default function taskPage() {
   //       setTaskDetail(response);
   //     } catch (error) {
   //       console.log(error);
-  //       // navigate("/tasks", { replace: true });
+  //       // navigate("/", { replace: true });
   //     }
   //   };
   //   fetchTask();
@@ -78,13 +78,13 @@ export default function taskPage() {
     } catch (error) {
       console.log(error);
     } finally {
-      navigate("/tasks");
+      navigate("/");
     }
   }
 
   return (
     <div className="p-8">
-      <button className="btn btn-info" onClick={() => navigate("/tasks")}>
+      <button className="btn btn-info" onClick={() => navigate("/")}>
         回列表
       </button>
       <div className="flex rounded-lg max-h-84 bg-white p-8 flex-col mt-4">
