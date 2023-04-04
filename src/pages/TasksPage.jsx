@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { GithubAPI } from "@/API";
 import { useTaskStore } from "@/stores/taskStore";
@@ -19,6 +19,9 @@ export default function main() {
   const [isLoading, setIsLoading] = useState(true);
   // const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+
+  //  const location = useLocation;
+  //  console.log(location);
 
   // const [queryParams, setQueryParams] = useState({
   //   filter: "assigned",

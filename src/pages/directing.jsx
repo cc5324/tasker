@@ -27,8 +27,8 @@ export async function loader({ request }) {
     const data = JSON.parse(response.data);
 
     if (data.access_token) {
-      Cookies.set("token", token);
-      console.log(`get token`, token);
+      Cookies.set("token", data.access_token);
+      console.log(`get token`, data.access_token);
       return null;
     }
   } catch (error) {

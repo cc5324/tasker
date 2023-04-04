@@ -68,7 +68,7 @@ const router = createBrowserRouter(
       ],
     },
   ],
-  { basename: "/tasker" }
+  { basename: "/tasker/" }
 );
 
 export default router;

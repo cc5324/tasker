@@ -41,6 +41,7 @@ API.interceptors.response.use(
           break;
         case 401:
           alert(error.response.data.message);
+          Cookies.remove("token");
           break;
         case 403:
           alert(error.response.data.message);
