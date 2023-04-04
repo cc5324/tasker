@@ -7,9 +7,8 @@ import {
 import Cookies from "js-cookie";
 
 import App from "@/App";
-import ErrorPage from "@/pages/share/error.jsx";
-import LoginPage from "@/pages/login.jsx";
-import Directing, { loader as TokenLoader } from "@/pages/directing.jsx";
+import ErrorPage from "@/pages/share/ErrorPage.jsx";
+import LoginPage, { loader as TokenLoader } from "@/pages/LoginPage.jsx";
 import Tasks from "@/pages/TasksPage.jsx";
 import TaskPage, { loader as TaskLoader } from "@/pages/TaskPage.jsx";
 import TaskEditPage from "@/pages/TaskEditPage";
@@ -25,7 +24,11 @@ const router = createBrowserRouter(
       errorElement: <ErrorPage />,
       children: [
         {
-          // index: true,
+          index: true,
+          element: <Tasks />,
+          loader: TokenLoader,
+        },
+        {
           path: "login",
           element: <LoginPage />,
           loader: () => {
@@ -33,17 +36,6 @@ const router = createBrowserRouter(
             return token ? redirect("/") : null;
           },
         },
-        { path: "directing", element: <Directing />, loader: TokenLoader },
-        {
-          index: true,
-          element: <Tasks />,
-          loader: TokenLoader,
-          // loader: () => {
-          //   const token = Cookies.get("token");
-          //   return token ? null : redirect("/login");
-          // },
-        },
-        { path: "tasks", element: <p>text</p> },
         {
           path: "task/:taskId",
           element: <TaskPage />,

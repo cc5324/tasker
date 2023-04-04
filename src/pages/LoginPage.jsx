@@ -41,6 +41,11 @@ export async function loader({ request }) {
       await useUserStore.getState().fetchAccount();
       return null;
     }
+
+    if (data.error) {
+      alert("授權失敗，請重新操作");
+      return redirect("/login");
+    }
   } catch (error) {
     console.log(error);
     alert(error.message);
@@ -49,6 +54,26 @@ export async function loader({ request }) {
   return redirect("/login");
 }
 
-export default function redirecting() {
-  return <></>;
+export default function LoginPage() {
+  const requestConfig = {
+    base: "https://github.com/login/oauth/authorize",
+    client_id: "5aa5158efe2c1966295d",
+    redirect_uri: "https://cc5324.github.io/tasker/",
+    scope: "repo",
+  };
+
+  const redirect_uri = import.meta.env.VITE_REDIRECT_URL;
+  console.log(redirect_uri);
+  // const endpoint = `https://github.com/login/oauth/authorize?client_id=5aa5158efe2c1966295d;scope=repo;redirect_uri=${redirect_uri};state=${state}`;
+  const endpoint = `https://github.com/login/oauth/authorize?client_id=5aa5158efe2c1966295d;scope=repo;`;
+
+  return (
+    <div className="p-8">
+      <p>Click it!</p>
+      <a href={endpoint} className="btn btn-primary text-xl mt-1">
+        Login with Github
+      </a>
+      <p className="mt-4">取得 Github 帳戶使用授權方可使用</p>
+    </div>
+  );
 }
