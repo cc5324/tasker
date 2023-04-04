@@ -19,6 +19,7 @@ export async function loader({ request }) {
       "Content-Type": "text/plain",
     },
   });
+  console.log(`res`, response);
 
   const data = JSON.parse(response.data);
   token = data.access_token;
@@ -26,7 +27,8 @@ export async function loader({ request }) {
   if (token) {
     Cookies.set("token", token);
     console.log(`get token`, token);
-    return redirect("/");
+    // return redirect("/");
+    return null;
   }
   // return null;
   return redirect("/login");
