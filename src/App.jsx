@@ -1,13 +1,13 @@
 import { Outlet } from "react-router-dom";
 
+import Header from "@/component/Header";
+
 import "./App.css";
 
 function App() {
   return (
     <div className="App flex flex-col">
-      <header className="grow-0 p-5 bg-primary text-3xl text-center font-bold">
-        <h1>Tasker</h1>
-      </header>
+      <Header />
       <Outlet className="grow"></Outlet>
     </div>
   );
