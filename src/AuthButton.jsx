@@ -7,7 +7,8 @@ export default function AuthButton() {
   };
   const state = "jiwqoejioqwjeoj";
   const redirect_uri = import.meta.env.VITE_REDIRECT_URL;
-  const endpoint = `https://github.com/login/oauth/authorize?client_id=5aa5158efe2c1966295d;scope=repo;redirect_uri=${redirect_uri};state=${state}`;
+  // const endpoint = `https://github.com/login/oauth/authorize?client_id=5aa5158efe2c1966295d;scope=repo;redirect_uri=${redirect_uri};state=${state}`;
+  const endpoint = `https://github.com/login/oauth/authorize?client_id=5aa5158efe2c1966295d;scope=repo;state=${state}`;
 
   return (
     <>
