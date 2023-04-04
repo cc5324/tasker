@@ -84,10 +84,12 @@ export default function taskPage() {
 
   return (
     <div className="p-8">
-      <button className="btn btn-info" onClick={() => navigate("/")}>
-        回列表
-      </button>
-      <div className="flex rounded-lg max-h-84 bg-white p-8 flex-col mt-4">
+      <div className="text-left">
+        <button className="btn" onClick={() => navigate("/")}>
+          回列表
+        </button>
+      </div>
+      <div className="flex rounded-lg max-h-84 bg-white flex-col mt-4">
         <div className="flex justify-between items-center">
           <div className="bg-gray-300 rounded-md w-fit px-2 py-1 mb-3">
             <span> {state}</span>

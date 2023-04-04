@@ -56,7 +56,6 @@ const CreateForm = () => {
                 assignee: username,
               }
             );
-            alert(JSON.stringify(response, null, 2));
             navigate("/");
           } catch (error) {
             console.log(error);
@@ -82,8 +81,20 @@ const CreateForm = () => {
               placeholder="Title"
             />
             <TextField label="body" name="body" type="textarea" rows={7} />
-            <button type="submit" className="btn" disabled={isSubmitting}>
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={isSubmitting}
+            >
               Submit
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary ml-3"
+              disabled={isSubmitting}
+              onClick={() => navigate("/")}
+            >
+              Cancel
             </button>
           </Form>
         )}

@@ -59,12 +59,16 @@ const EditForm = () => {
             />
             <TextField label="body" name="body" type="textarea" rows={7} />
             <div className="flex gap-3 justify-center mt-4">
-              <button type="submit" className="btn" disabled={isSubmitting}>
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={isSubmitting}
+              >
                 Submit
               </button>
               <button
                 type="button"
-                className="btn"
+                className="btn btn-secondary"
                 disabled={isSubmitting}
                 onClick={() => navigate(-1)}
               >

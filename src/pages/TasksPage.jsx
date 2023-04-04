@@ -72,12 +72,6 @@ export default function main() {
     console.log(`call effect`);
     const fetchData = async () => {
       if (!hasMore) return;
-      // const response = await GithubAPI.GET("/issues", {
-      //   params: queryParams,
-      //   headers: {
-      //     Accept: "application/vnd.github+json",
-      //   },
-      // });
 
       const { assignee, state, labels, ...params } = queryParams;
       const response = await GithubAPI.GET("/search/issues", {
@@ -110,7 +104,7 @@ export default function main() {
   return (
     <div className="p-4 md:p-8 lg:p-12 bg-base-200">
       <div className="flex items-center flex-wrap sm:flex-nowrap justify-center sm:justify-between gap-3 sm:gap-0 mb-4">
-        <Link to={"/new-task"} className="btn btn-info">
+        <Link to={"/new-task"} className="btn btn-primary">
           <PlusIcon className="h-5 w-5" />
           Task
         </Link>
