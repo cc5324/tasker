@@ -3,12 +3,13 @@ import { Formik, Form } from "formik";
 import { object, string } from "yup";
 
 import { GithubAPI } from "@/API";
-import { useTaskStore } from "@/stores/taskStore";
+import { useTaskStore, useUserStore } from "@/stores/taskStore";
 import { TextField, DropdownField, SelectField } from "@/component/base";
 
 export async function repoLoader() {
   try {
     const response = await GithubAPI.GET("/user/repos");
+    console.log(`repos`, response);
     return response;
   } catch (error) {
     return redirect("/");
@@ -18,6 +19,7 @@ export async function repoLoader() {
 const CreateForm = () => {
   const navigate = useNavigate();
   const stateOptions = useTaskStore((state) => state.stateOptions);
+  const username = useUserStore((state) => state.account);
   const repos = useLoaderData();
   const repoOptions = repos.map(({ id, name, owner }) => {
     return { id, name, owner: owner.login };
@@ -42,7 +44,7 @@ const CreateForm = () => {
         })}
         onSubmit={async ({ title, body, state, repoID }) => {
           const { name, owner } = repoOptions.find(
-            (repo) => repo.id === repoID
+            (repo) => repo.id === Number(repoID)
           );
           try {
             const response = await GithubAPI.POST(
@@ -51,7 +53,7 @@ const CreateForm = () => {
                 title,
                 body,
                 labels: [state],
-                assignee: "cc5324",
+                assignee: username,
               }
             );
             alert(JSON.stringify(response, null, 2));

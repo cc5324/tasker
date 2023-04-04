@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { GithubAPI } from "@/API";
 import { useTaskStore } from "@/stores/taskStore";
 import { getInfoByIssueURL } from "@/share/utils/url-parser.js";
+import { useUserStore } from "@/stores/taskStore";
 
 import {
   PlusIcon,
@@ -33,7 +34,8 @@ export default function main() {
   //   labels: "open",
   // });
 
-  const username = "cc5324";
+  const username = useUserStore((state) => state.account);
+  console.log(`user`, username);
   const [queryString, setQueryString] = useState("");
   const [queryParams, setQueryParams] = useState({
     sort: "created",

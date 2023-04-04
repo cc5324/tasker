@@ -2,12 +2,17 @@ import { redirect } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 
+import { useUserStore } from "@/stores/taskStore";
+
 export async function loader({ request }) {
   console.log(`loader`);
+
   //是否存有 token
   let token = Cookies.get("token");
-  if (token) return null;
-  console.log(token);
+  if (token) {
+    await useUserStore.getState().fetchAccount();
+    return null;
+  }
 
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
@@ -27,8 +32,9 @@ export async function loader({ request }) {
     const data = JSON.parse(response.data);
 
     if (data.access_token) {
-      Cookies.set("token", data.access_token);
       console.log(`get token`, data.access_token);
+      Cookies.set("token", data.access_token);
+      await useUserStore.getState().fetchAccount();
       return null;
     }
   } catch (error) {

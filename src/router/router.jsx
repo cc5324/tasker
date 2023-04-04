@@ -63,7 +63,6 @@ const router = createBrowserRouter(
         {
           path: "demo",
           element: <DemoPage />,
-          loader: repoLoader,
         },
       ],
     },
