@@ -2,9 +2,10 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import { GithubAPI } from "@/API";
-import { useTaskStore } from "@/stores/taskStore";
 import { getInfoByIssueURL } from "@/share/utils/url-parser.js";
-import { useUserStore } from "@/stores/taskStore";
+import { useUserStore } from "@/stores/userStore";
+
+import { stateOptions } from "@/assets/configure";
 
 import {
   PlusIcon,
@@ -98,8 +99,6 @@ export default function main() {
 
     fetchData();
   }, [queryParams]);
-
-  const stateOptions = useTaskStore((state) => state.stateOptions);
 
   return (
     <div className="p-4 md:p-8 lg:p-12 bg-base-200">

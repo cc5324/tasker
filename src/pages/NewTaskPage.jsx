@@ -3,8 +3,10 @@ import { Formik, Form } from "formik";
 import { object, string } from "yup";
 
 import { GithubAPI } from "@/API";
-import { useTaskStore, useUserStore } from "@/stores/taskStore";
+import { useUserStore } from "@/stores/userStore";
 import { TextField, DropdownField, SelectField } from "@/component/fields";
+
+import { stateOptions } from "@/assets/configure";
 
 export async function repoLoader() {
   try {
@@ -18,7 +20,6 @@ export async function repoLoader() {
 
 const CreateForm = () => {
   const navigate = useNavigate();
-  const stateOptions = useTaskStore((state) => state.stateOptions);
   const username = useUserStore((state) => state.account);
   const repos = useLoaderData();
   const repoOptions = repos.map(({ id, name, owner }) => {

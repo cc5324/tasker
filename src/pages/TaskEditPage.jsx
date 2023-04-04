@@ -3,12 +3,12 @@ import { Formik, Form } from "formik";
 import { object, string } from "yup";
 
 import { GithubAPI } from "@/API";
-import { useTaskStore } from "@/stores/taskStore";
 import { TextField, DropdownField } from "@/component/fields";
+
+import { stateOptions } from "@/assets/configure";
 
 const EditForm = () => {
   const navigate = useNavigate();
-  const stateOptions = useTaskStore((state) => state.stateOptions);
   const { title, body, labels } = useLoaderData();
 
   let [searchParams, setSearchParams] = useSearchParams();

@@ -2,7 +2,7 @@ import { redirect } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-import { useUserStore } from "@/stores/taskStore";
+import { useUserStore } from "@/stores/userStore";
 
 export async function loader({ request }) {
   console.log(`loader`);
