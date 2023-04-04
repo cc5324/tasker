@@ -8,8 +8,8 @@ export default function LoginPage() {
   const state = "jiwqoejioqwjeoj";
   const redirect_uri = import.meta.env.VITE_REDIRECT_URL;
   console.log(redirect_uri);
-  const endpoint = `https://github.com/login/oauth/authorize?client_id=5aa5158efe2c1966295d;scope=repo;redirect_uri=${redirect_uri};state=${state}`;
-  // const endpoint = `https://github.com/login/oauth/authorize?client_id=5aa5158efe2c1966295d;scope=repo;state=${state}`;
+  // const endpoint = `https://github.com/login/oauth/authorize?client_id=5aa5158efe2c1966295d;scope=repo;redirect_uri=${redirect_uri};state=${state}`;
+  const endpoint = `https://github.com/login/oauth/authorize?client_id=5aa5158efe2c1966295d;scope=repo;state=${state}`;
 
   return (
     <div className="p-8">
