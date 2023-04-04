@@ -1,4 +1,10 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  redirect,
+  RouterProvider,
+} from "react-router-dom";
+
+import Cookies from "js-cookie";
 
 import App from "@/App";
 import ErrorPage from "@/pages/share/error.jsx";
@@ -7,7 +13,7 @@ import Directing, { loader as TokenLoader } from "@/pages/directing.jsx";
 import Tasks from "@/pages/TasksPage.jsx";
 import TaskPage, { loader as TaskLoader } from "@/pages/TaskPage.jsx";
 import TaskEditPage from "@/pages/TaskEditPage";
-import NewTaskPage, { repoLoader } from "@/pages/NewTaskPage ";
+import NewTaskPage, { repoLoader } from "@/pages/NewTaskPage.jsx";
 
 import DemoPage from "@/pages/share/demo.jsx";
 
@@ -17,9 +23,15 @@ const router = createBrowserRouter(
       path: "/",
       element: <App />,
       errorElement: <ErrorPage />,
-      // action: rootAction,
       children: [
-        { path: "login", element: <LoginPage /> },
+        {
+          index: true,
+          element: <LoginPage />,
+          loader: () => {
+            const token = Cookies.get("token");
+            return token ? redirect("/tasks") : null;
+          },
+        },
         { path: "directing", element: <Directing />, loader: TokenLoader },
         { path: "tasks", element: <Tasks /> },
         {
