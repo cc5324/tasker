@@ -12,6 +12,6 @@ export default defineConfig({
     },
   },
   esbuild: {
-    drop: ["console"],
+    // drop: ["console"],
   },
 });
