@@ -4,7 +4,7 @@ import { object, string } from "yup";
 
 import { GithubAPI } from "@/API";
 import { useTaskStore, useUserStore } from "@/stores/taskStore";
-import { TextField, DropdownField, SelectField } from "@/component/base";
+import { TextField, DropdownField, SelectField } from "@/component/fields";
 
 export async function repoLoader() {
   try {

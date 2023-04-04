@@ -4,7 +4,7 @@ import { object, string } from "yup";
 
 import { GithubAPI } from "@/API";
 import { useTaskStore } from "@/stores/taskStore";
-import { TextField, DropdownField } from "@/component/base";
+import { TextField, DropdownField } from "@/component/fields";
 
 const EditForm = () => {
   const navigate = useNavigate();
