@@ -11,4 +11,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"), //設定縮寫路徑為@
     },
   },
+  esbuild: {
+    drop: ["console"],
+  },
 });
