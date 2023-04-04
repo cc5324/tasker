@@ -22,7 +22,8 @@ export async function loader({ request }) {
   try {
     const response = await axios({
       method: "post",
-      url: "https://script.google.com/macros/s/AKfycbxwOLQ23GYg_QVAblvvQxf-qJIHaloOudc_hC_62m2d4mfGb-TLUCmB_bj9itI5Naz2_w/exec",
+      // url: "https://script.google.com/macros/s/AKfycbxwOLQ23GYg_QVAblvvQxf-qJIHaloOudc_hC_62m2d4mfGb-TLUCmB_bj9itI5Naz2_w/exec",
+      url: "https://script.google.com/macros/s/AKfycbxtDAChwPTv5hRiiSG9LIu15SXQlzbwsA2klev04LJLtRUQzGiuBCIBn66EHp-ZuP8Ysg/exec",
       data: JSON.stringify({ code }),
       headers: {
         "Content-Type": "text/plain",
