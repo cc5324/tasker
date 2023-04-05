@@ -41,7 +41,6 @@ export default function main() {
       if (observe.current) observe.current.disconnect();
       observe.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
-          // setPage((prevPage) => prevPage + 1);
           setQueryParams((prev) => {
             return {
               ...prev,
@@ -56,9 +55,12 @@ export default function main() {
   );
 
   useEffect(() => {
-    console.log(`call effect`);
-    const fetchData = async () => {
-      if (!hasMore) return;
+    // console.log(`call effect`);
+    let ignore = false;
+
+    const fetchTasks = async () => {
+      if (!hasMore || ignore) return;
+      setIsLoading(true);
 
       const { assignee, state, labels, ...params } = queryParams;
       const response = await GithubAPI.GET("/search/issues", {
@@ -70,20 +72,24 @@ export default function main() {
           Accept: "application/vnd.github+json",
         },
       });
-      console.log(response);
 
       const newTasks = response.items;
-      if (newTasks.length === 0) {
+      if (newTasks.length < 10) {
         setHasMore(false);
-      } else {
-        setTasks((prevTasks) => {
-          return [...prevTasks, ...newTasks];
-        });
       }
+
+      setTasks((prevTasks) => {
+        return [...prevTasks, ...newTasks];
+      });
       setIsLoading(false);
     };
 
-    fetchData();
+    fetchTasks();
+
+    return () => {
+      console.log(`cleanup`);
+      ignore = true;
+    };
   }, [queryParams]);
 
   return (
@@ -178,7 +184,7 @@ export default function main() {
           );
         })}
       </div>
-      {isLoading && <Spinner />}
+      {isLoading && <Spinner className="p-4" />}
       {!hasMore && (
         <div className="mt-5 text-center text-xl">
           <span className="mr-4">No More Tasks!</span>
