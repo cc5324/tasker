@@ -64,7 +64,8 @@
 └── vite.config.js
 ```
 ### 主要資料夾說明
-主要使用資源都放在 /src 資料夾下，
+主要使用資源都放在 /src 資料夾下內，針對此資料夾進行說明：
+
 - 📁 API：建立 axios 實例，統一封裝管理 API
 - 📁 assets：靜態資源
   - 📁 configure：APP 需求設定相關定義檔（如：task 可操作狀態(labels)）
