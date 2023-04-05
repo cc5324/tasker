@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 
 import { GithubAPI } from "@/API";
-import { getInfoByIssueURL } from "@/share/utils/url-parser.js";
+import { getInfoByIssueURL } from "@/share/utils/urlHelper.js";
 import { useUserStore } from "@/stores/userStore";
 
 import { stateOptions } from "@/assets/configure";

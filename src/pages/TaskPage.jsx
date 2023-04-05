@@ -14,7 +14,7 @@ import {
 
 import { GithubAPI } from "@/API";
 
-import { getSearchParams } from "@/share/utils/getSearchParams";
+import { getSearchParams } from "@/share/utils/urlHelper";
 
 export async function loader({ request }) {
   const { params } = getSearchParams(request.url);
@@ -23,7 +23,7 @@ export async function loader({ request }) {
     const response = await GithubAPI.GET(
       `/repos/${params.owner}/${params.repo}/issues/${params.number}`
     );
-    console.log(response);
+    // console.log(response);
     return response;
   } catch (error) {
     console.log(error);
