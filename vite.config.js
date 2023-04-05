@@ -14,4 +14,7 @@ export default defineConfig({
   esbuild: {
     // drop: ["console"],
   },
+  server: {
+    port: 5173,
+  },
 });

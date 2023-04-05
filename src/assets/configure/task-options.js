@@ -11,8 +11,6 @@ const stateOptions = [
     value: "in progress",
     id: "5334017295",
     color: "green",
-    // color: "primary",
-    // color: "emerald-400",
   },
   {
     name: "done",
@@ -20,7 +18,6 @@ const stateOptions = [
     value: "done",
     id: "5334018549",
     color: "error",
-    // color: "red",
   },
 ];
 
