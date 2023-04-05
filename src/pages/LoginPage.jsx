@@ -5,7 +5,7 @@ import { getGithubToken } from "@/API";
 import { useUserStore } from "@/stores/userStore";
 
 export async function loader({ request }) {
-  console.log(`loader`);
+  // console.log(`loader`);
 
   //是否存有 token
   let token = Cookies.get("token");
@@ -41,16 +41,8 @@ export async function loader({ request }) {
 }
 
 export default function LoginPage() {
-  const requestConfig = {
-    base: "https://github.com/login/oauth/authorize",
-    client_id: "5aa5158efe2c1966295d",
-    redirect_uri: "https://cc5324.github.io/tasker/",
-    scope: "repo",
-  };
-
-  const redirect_uri = import.meta.env.VITE_REDIRECT_URL;
-  // const endpoint = `https://github.com/login/oauth/authorize?client_id=5aa5158efe2c1966295d;scope=repo;redirect_uri=${redirect_uri};state=${state}`;
-  const endpoint = `https://github.com/login/oauth/authorize?client_id=5aa5158efe2c1966295d;scope=repo;`;
+  const appClientID = import.meta.env.VITE_CLIENT_ID;
+  const endpoint = `https://github.com/login/oauth/authorize?client_id=${appClientID};scope=repo;`;
 
   return (
     <div className="p-8">
