@@ -8,7 +8,6 @@ const API = axios.create({
     "Content-Type": "application/json; charset=utf-8",
     // Accept: "application/json",
     Accept: "application/vnd.github+json",
-    // "X-GitHub-Api-Version": "2022-11-28",
   },
 });
 
@@ -66,23 +65,6 @@ API.interceptors.response.use(
 );
 
 export default {
-  async formDataPOST(url, data) {
-    try {
-      const form = new FormData();
-      for (let key in data) {
-        form.append(key, data[key]);
-      }
-      // 因為 formData 只支援 post / get method，所以要透過 url 來判斷上傳檔案的功能
-      const res = await API.post(url, form, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      return res.data;
-    } catch (res) {
-      return Promise.reject(res.response.data);
-    }
-  },
   async GET(url, arg) {
     try {
       const res = await API.get(url, {
@@ -93,26 +75,9 @@ export default {
       return Promise.reject(res.response.data);
     }
   },
-  async DELETE(url, data) {
-    try {
-      const res = await API.delete(url, data);
-      return res;
-    } catch (res) {
-      return Promise.reject(res.response.data);
-    }
-  },
   async POST(url, data, config) {
     try {
       const res = await API.post(url, data, config);
-      return res.data;
-    } catch (res) {
-      return Promise.reject(res.response.data);
-    }
-  },
-  async PUT(url, data, config) {
-    try {
-      const res = await API.put(url, data, config);
-      console.log(`res`, res);
       return res.data;
     } catch (res) {
       return Promise.reject(res.response.data);

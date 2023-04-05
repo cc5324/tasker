@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useRouteError, useNavigate, Link } from "react-router-dom";
 
 import Header from "@/component/Header";
@@ -6,19 +5,6 @@ import Header from "@/component/Header";
 export default function ErrorPage() {
   const navigate = useNavigate();
   const error = useRouteError();
-  console.error(error);
-
-  // const [countdown, setCountdown] = useState(5);
-
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setCountdown((prev) => prev - 1);
-  //   }, 5000);
-  //   return () => {
-  //     clearInterval(timer);
-  //     navigate("/");
-  //   };
-  // });
 
   return (
     <div id="error-page">

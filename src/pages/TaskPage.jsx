@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
   useNavigate,
   useLoaderData,
@@ -16,7 +15,6 @@ import {
 import { GithubAPI } from "@/API";
 
 import { getSearchParams } from "@/share/utils/getSearchParams";
-// import { useNavigateSearch } from "@/share/hooks/useNavigateSearch";
 
 export async function loader({ request }) {
   const { params } = getSearchParams(request.url);
@@ -37,37 +35,13 @@ export default function taskPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // const { params: searchParams } = getSearchParams(window.location.href);
-  // const owner = searchParams.owner;
-  // const number = searchParams.number;
-  // const repo = searchParams.repo;
-
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [taskDetail, setTaskDetail] = useState({});
-  // useEffect(() => {
-  //   const fetchTask = async () => {
-  //     try {
-  //       const response = await GithubAPI.GET(
-  //         `/repos/${owner}/${repo}/issues/${number}`
-  //       );
-  //       console.log(response);
-  //       setTaskDetail(response);
-  //     } catch (error) {
-  //       console.log(error);
-  //       // navigate("/", { replace: true });
-  //     }
-  //   };
-  //   fetchTask();
-  // }, []);
-  // const { state, title, body, user, created_at, updated_at } = taskDetail;
-
   const { state, title, body, user, created_at, updated_at, url, id } =
     useLoaderData();
 
-  const [params, setParams] = useSearchParams();
-  const owner = params.get("owner");
-  const repo = params.get("repo");
-  const issue_number = params.get("number");
+  const [searchParams, setParams] = useSearchParams();
+  const { owner, repo, issue_number } = Object.fromEntries(
+    searchParams.entries()
+  );
 
   async function deleteTask({ owner, repo, issue_number }) {
     try {
@@ -138,19 +112,6 @@ export default function taskPage() {
           <h2 className="text-gray-900 text-lg title-font font-medium">
             <span>Title: {title}</span>
           </h2>
-          {/* <label htmlFor="title" className="label">
-            <span className="text-gray-900 text-lg title-font font-medium">
-              Title
-            </span>
-          </label>
-          <div className="form-control w-full">
-            <input
-              name="title"
-              className="input focus:outline-none"
-              defaultValue={title}
-              readOnly
-            />
-          </div> */}
         </div>
         <div className="flex-grow overflow-hidden p-1">
           <p className="text-right text-xs">
@@ -160,16 +121,6 @@ export default function taskPage() {
             Updated At: {updated_at.split("T")[0]}
           </p>
           <p className="text-left text-base line-clamp-3">Body: {body}</p>
-          {/* <div className="form-control w-full">
-            <label htmlFor="body" className="label">
-              <span className="label-text">Body</span>
-            </label>
-            <textarea
-              className="textarea textarea-bordered"
-              defaultValue={body}
-              readOnly
-            />
-          </div> */}
         </div>
       </div>
       <div className="flex gap-3 justify-center mt-4">

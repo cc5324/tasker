@@ -1,7 +1,7 @@
 import { redirect } from "react-router-dom";
-import axios from "axios";
 import Cookies from "js-cookie";
 
+import { getGithubToken } from "@/API";
 import { useUserStore } from "@/stores/userStore";
 
 export async function loader({ request }) {
@@ -16,33 +16,19 @@ export async function loader({ request }) {
 
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
-  console.log(`code`, code);
   if (!code) return redirect("/login");
 
   try {
-    const response = await axios({
-      method: "post",
-      // url: "https://script.google.com/macros/s/AKfycbxwOLQ23GYg_QVAblvvQxf-qJIHaloOudc_hC_62m2d4mfGb-TLUCmB_bj9itI5Naz2_w/exec",
-      url: "https://script.google.com/macros/s/AKfycbxQrzmbLdLO7f1qhfszyYygTY5oN2bSwQdmv-ewV9Ml2E1j4SHFA8LM-_m3SOjqbOIgRA/exec",
-      data: JSON.stringify({
-        code,
-        redirect_uri: import.meta.env.VITE_REDIRECT_URL,
-      }),
-      headers: {
-        "Content-Type": "text/plain",
-      },
-    });
-    console.log(`res`, response);
-    const data = JSON.parse(response.data);
+    const response = await getGithubToken(code);
 
-    if (data.access_token) {
-      console.log(`get token`, data.access_token);
-      Cookies.set("token", data.access_token);
+    if (response.access_token) {
+      // console.log(`get token`, response.access_token);
+      Cookies.set("token", response.access_token);
       await useUserStore.getState().fetchAccount();
       return null;
     }
 
-    if (data.error) {
+    if (response.error) {
       alert("授權失敗，請重新操作");
       return redirect("/login");
     }
@@ -63,7 +49,6 @@ export default function LoginPage() {
   };
 
   const redirect_uri = import.meta.env.VITE_REDIRECT_URL;
-  console.log(redirect_uri);
   // const endpoint = `https://github.com/login/oauth/authorize?client_id=5aa5158efe2c1966295d;scope=repo;redirect_uri=${redirect_uri};state=${state}`;
   const endpoint = `https://github.com/login/oauth/authorize?client_id=5aa5158efe2c1966295d;scope=repo;`;
 

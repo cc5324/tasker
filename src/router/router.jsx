@@ -14,8 +14,6 @@ import TaskPage, { loader as TaskLoader } from "@/pages/TaskPage.jsx";
 import TaskEditPage from "@/pages/TaskEditPage";
 import NewTaskPage, { repoLoader } from "@/pages/NewTaskPage.jsx";
 
-import DemoPage from "@/pages/share/demo.jsx";
-
 const router = createBrowserRouter(
   [
     {
@@ -51,10 +49,6 @@ const router = createBrowserRouter(
           path: "/new-task",
           element: <NewTaskPage />,
           loader: repoLoader,
-        },
-        {
-          path: "demo",
-          element: <DemoPage />,
         },
       ],
     },

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { GithubAPI } from "@/API";
 import { getInfoByIssueURL } from "@/share/utils/url-parser.js";
@@ -19,21 +19,7 @@ import Spinner from "@/component/SpinnerItem.jsx";
 export default function main() {
   const [tasks, setTasks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  // const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-
-  //  const location = useLocation;
-  //  console.log(location);
-
-  // const [queryParams, setQueryParams] = useState({
-  //   filter: "assigned",
-  //   state: "open",
-  //   per_page: 10,
-  //   page: 1,
-  //   sort: "created",
-  //   direction: "desc",
-  //   labels: "open",
-  // });
 
   const username = useUserStore((state) => state.account);
   console.log(`user`, username);
