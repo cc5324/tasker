@@ -32,14 +32,14 @@ const CreateForm = () => {
         initialValues={{
           title: "",
           body: "",
-          state: "Open",
+          state: "open",
           repoID: repoOptions[0].id,
         }}
         validationSchema={object({
           title: string().max(30, "不得多於 30 個字").required("必填"),
           body: string().min(30, "不得少於 30 個字").required("必填"),
           state: string()
-            .oneOf(["Open", "In Progress", "Done"])
+            // .oneOf(["open", "in progress", "done"])
             .required("Required"),
           repoID: string().required(),
         })}

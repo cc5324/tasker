@@ -20,13 +20,13 @@ const EditForm = () => {
         initialValues={{
           title: title,
           body: body,
-          state: labels[0]?.name ?? "Open",
+          state: labels[0]?.name ?? "open",
         }}
         validationSchema={object({
           title: string().max(30, "不得多於 30 個字").required("必填"),
           body: string().min(30, "不得少於 30 個字").required("必填"),
           state: string()
-            .oneOf(["open", "in progress", "done"])
+            // .oneOf(["open", "in progress", "done"])
             .required("Required"),
         })}
         onSubmit={async ({ title, body, state }) => {
