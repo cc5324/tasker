@@ -24,7 +24,7 @@ const EditForm = () => {
         }}
         validationSchema={object({
           title: string().max(30, "不得多於 30 個字").required("必填"),
-          body: string().min(10, "不得少於 30 個字").required("必填"),
+          body: string().min(30, "不得少於 30 個字").required("必填"),
           state: string()
             .oneOf(["open", "in progress", "done"])
             .required("Required"),
